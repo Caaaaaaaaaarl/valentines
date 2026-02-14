@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Makima 🐾</title>
+    <style>
+        :root { --primary-pink: #ff4d6d; --soft-pink: #ffeff2; --dark-pink: #d90429; }
+        
+        body {
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            min-height: 100vh;
+            background-color: var(--soft-pink);
+            background-image: radial-gradient(#ffccd5 10%, transparent 11%);
+            background-size: 20px 20px;
+            font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+            text-align: center; color: #444;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white; padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.25);
+            max-width: 500px;
+            animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 10;
+            position: relative;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        img {
+            width: 180px; height: 180px;
+            border-radius: 50%; object-fit: cover;
+            border: 6px solid var(--primary-pink);
+            margin-bottom: 20px;
+            animation: wobble 3s infinite ease-in-out;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); border-radius: 50%; }
+            25% { transform: rotate(-3deg) scale(1.02); border-radius: 45%; }
+            75% { transform: rotate(3deg) scale(1.02); border-radius: 55%; }
+        }
+
+        h1 { 
+            color: var(--primary-pink); margin: 0; 
+            animation: dropDown 1s ease-out;
+        }
+        
+        @keyframes dropDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        p { 
+            font-size: 1.2rem; line-height: 1.6; margin: 20px 0; 
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .btn {
+            display: inline-block; text-decoration: none;
+            background: var(--primary-pink); color: white;
+            padding: 12px 30px; border-radius: 50px;
+            font-weight: bold; transition: all 0.2s;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .btn:hover { 
+            transform: scale(1.1); 
+            background: var(--dark-pink);
+            animation: none; /* Stop heartbeat on hover */
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        /* Falling Hearts/Paws */
+        .falling-item {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            color: var(--primary-pink);
+            opacity: 0.7;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="rain-container"></div>
+
+    <div class="card">
+        <img src="makima.gif" alt="Makima">
+        <h1>Happy Valentine's, Makima! 🐾</h1>
+        
+        <p>
+            Hey! Just wanted to drop by and say Happy Valentine's Day, Preeeee!. <br><br>
+            Thank you for being such a great friend and for all the fun memories. 
+            Hope your day is full of good food, great vibes, and matchaaaaaaa!! 🍵
+            <br><br>
+            <b>- Leeeeeee</b>
+        </p>
+
+        <a href="index.html" class="btn">Go Back</a>
+    </div>
+
+    <script>
+        // Script to create falling hearts and paws
+        const rainContainer = document.getElementById('rain-container');
+        const drops = ['❤️', '🍵', '🐾', '🌸', '💖'];
+
+        function createRain() {
+            const drop = document.createElement('div');
+            drop.classList.add('falling-item');
+            drop.innerHTML = drops[Math.floor(Math.random() * drops.length)];
+            
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            const duration = Math.random() * 3 + 2;
+            drop.style.animationDuration = duration + 's';
+
+            document.body.appendChild(drop);
+
+            // Remove after animation finishes
+            setTimeout(() => { drop.remove(); }, duration * 1000);
+        }
+
+        // Make it rain every 300ms
+        setInterval(createRain, 300);
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-pink: #ffeff2;
+            --card-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            min-height: 100vh;
+            background-color: var(--soft-pink);
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h1 { 
+            color: var(--primary-pink); 
+            margin-bottom: 40px; 
+            z-index: 10; 
+            font-size: 2.5rem; 
+            text-shadow: 3px 3px white;
+            padding: 0 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            z-index: 10;
+            padding: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .selection-card {
+            background: white;
+            width: 220px;
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid transparent;
+            position: relative;
+            text-decoration: none;
+            display: block;
+        }
+
+        .selection-card:hover {
+            transform: translateY(-15px) scale(1.08);
+            border-color: var(--primary-pink);
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.4);
+        }
+
+        .char-gif {
+            width: 150px; height: 150px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            background: #fff5f6;
+        }
+
+        .char-name {
+            color: #444; font-size: 1.5rem; font-weight: bold;
+        }
+
+        /* Floating Hearts Background */
+        .heart {
+            position: absolute;
+            color: var(--primary-pink);
+            user-select: none; pointer-events: none;
+            animation: floatUp 5s linear forwards;
+            opacity: 0; z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- THE BOOGSH EFFECT STYLES --- */
+        #transition-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; /* Allows clicking through when hidden */
+            z-index: 9999;
+        }
+
+        .big-heart {
+            font-size: 0px; /* Hidden initially */
+            color: #ff4d6d;
+            opacity: 0;
+            transition: transform 0.5s;
+        }
+
+        /* The Explosion Animation Class */
+        .boogsh-active .big-heart {
+            animation: explodeHeart 1.2s forwards cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes explodeHeart {
+            0% { 
+                font-size: 0px; 
+                opacity: 0; 
+                transform: rotate(0deg); 
+            }
+            30% { 
+                font-size: 150px; 
+                opacity: 1; 
+                transform: rotate(-10deg); 
+            }
+            100% { 
+                font-size: 400vw; /* Scales to cover the whole screen */
+                opacity: 1; 
+                transform: rotate(0deg); 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="transition-overlay">
+        <div class="big-heart">❤️</div>
+    </div>
+
+    <h1>HAPPY VALENTINE'S, MGA PREEEEEE 💖</h1>
+
+    <div class="container">
+        
+        <a href="makima.html" class="selection-card" onclick="triggerTransition(event, this.href)">
+            <img class="char-gif" src="makima.gif" alt="Makima">
+            <div class="char-name">To Makima</div>
+        </a>
+
+        <a href="nyxcotta.html" class="selection-card" onclick="triggerTransition(event, this.href)">
+            <img class="char-gif" src="nyxcotta.gif" alt="Nyxcotta">
+            <div class="char-name">To Nyxcotta</div>
+        </a>
+
+    </div>
+
+    <div id="hearts-wrapper"></div>
+
+    <script>
+        // Floating Hearts Logic
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const icons = ['❤️', '💖', '💝', '💕', '🌸'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.getElementById('hearts-wrapper').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // --- THE BOOGSH TRANSITION LOGIC ---
+        function triggerTransition(event, targetUrl) {
+            // 1. Stop the immediate click
+            event.preventDefault();
+
+            // 2. Play the sound (Optional - remove if you don't want sound)
+            // const audio = new Audio('pop-sound.mp3'); 
+            // audio.play().catch(e => console.log('Audio blocked'));
+
+            // 3. Trigger the animation
+            const overlay = document.getElementById('transition-overlay');
+            overlay.classList.add('boogsh-active');
+
+            // 4. Wait for 800ms (0.8s) then go to the new page
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 800);
+        }
+    </script>
+</body>
+</html>
